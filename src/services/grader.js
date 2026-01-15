@@ -3,6 +3,8 @@ const { APITester } = require("../tests/api.test")
 const fs = require("fs")
 const path = require("path")
 
+const ENABLE_FRONTEND_TESTS = false // Set to true to enable frontend tests
+
 class Grader {
 	constructor(baseUrl = "http://localhost:3000", timeout = 30000) {
 		this.baseUrl = baseUrl
@@ -89,6 +91,7 @@ class Grader {
 			})
 
 			// Step 2: Wait a bit for server to stabilize
+			console.log("⏳ Waiting for server to stabilize...")
 			await new Promise((resolve) => setTimeout(resolve, 2000))
 
 			// Step 3: Run API tests
@@ -111,14 +114,20 @@ class Grader {
 			)
 		} catch (error) {
 			console.error("❌ Error during grading:", error.message)
+			console.error("Stack trace:", error.stack)
 			result.errors.push(error.message)
 		} finally {
 			// Always stop the server
 			console.log("\n🛑 Stopping server...")
-			await serverManager.stopServer()
-			console.log("✅ Server stopped")
+			try {
+				await serverManager.stopServer()
+				console.log("✅ Server stopped successfully")
+			} catch (stopError) {
+				console.error("❌ Error stopping server:", stopError.message)
+			}
 		}
 
+		console.log("🏁 Finished grading", student.studentName)
 		return result
 	}
 

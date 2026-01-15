@@ -13,12 +13,25 @@ class APITester {
 	async runAllTests() {
 		const results = []
 
+		console.log("  → Testing GET /api/recipes...")
 		results.push(await this.testGetAllRecipes())
+
+		console.log("  → Testing GET /api/recipes/:id...")
 		results.push(await this.testGetRecipeById())
+
+		console.log("  → Testing GET /api/recipes/:id 404...")
 		results.push(await this.testGetRecipeById404())
+
+		console.log("  → Testing POST valid recipe...")
 		results.push(await this.testPostRecipeValid())
+
+		console.log("  → Testing POST validation...")
 		results.push(await this.testPostRecipeValidation())
+
+		console.log("  → Testing data persistence...")
 		results.push(await this.testDataPersistence())
+
+		console.log("  → Testing error handling...")
 		results.push(await this.testErrorHandling())
 
 		return results
@@ -178,17 +191,25 @@ class APITester {
 	/**
 	 * Test POST /api/recipes - Should validate required fields
 	 */
+	/**
+	 * Test POST /api/recipes - Should validate required fields
+	 */
 	async testPostRecipeValidation() {
-		const invalidRecipe = {
-			name: "",
-			cuisine: "Test",
-			// Missing required fields
-		}
-
+		// Test 1: Empty name
 		try {
-			await axios.post(`${this.baseUrl}/api/recipes`, invalidRecipe, {
-				timeout: this.timeout,
-			})
+			await axios.post(
+				`${this.baseUrl}/api/recipes`,
+				{
+					name: "",
+					cuisine: "Test",
+					difficulty: "Facile",
+					prepTime: 10,
+					servings: 2,
+					ingredients: ["Test"],
+					instructions: "Test",
+				},
+				{ timeout: this.timeout }
+			)
 
 			// Should not reach here
 			return {
@@ -196,22 +217,110 @@ class APITester {
 				passed: false,
 				points: 0,
 				maxPoints: 15,
-				details: "✗ Devrait rejeter les données invalides",
+				details: "✗ Devrait rejeter un nom vide",
 			}
 		} catch (error) {
-			const passed = error.response && error.response.status === 400
+			const test1Passed = error.response && error.response.status === 400
+
+			if (!test1Passed) {
+				return {
+					testName: "POST /api/recipes - Validation des champs",
+					passed: false,
+					points: 0,
+					maxPoints: 15,
+					details: `✗ Nom vide: Status ${
+						error.response ? error.response.status : "N/A"
+					} au lieu de 400`,
+				}
+			}
+		}
+
+		// Test 2: Missing ingredients
+		try {
+			await axios.post(
+				`${this.baseUrl}/api/recipes`,
+				{
+					name: "Test Recipe",
+					cuisine: "Test",
+					difficulty: "Facile",
+					prepTime: 10,
+					servings: 2,
+					ingredients: [], // Empty array
+					instructions: "Test",
+				},
+				{ timeout: this.timeout }
+			)
 
 			return {
 				testName: "POST /api/recipes - Validation des champs",
-				passed,
-				points: passed ? 15 : 0,
+				passed: false,
+				points: 0,
 				maxPoints: 15,
-				details: passed
-					? "✓ Validation correcte (400 retourné)"
-					: `✗ Status ${
-							error.response ? error.response.status : "N/A"
-					  } au lieu de 400`,
+				details: "✗ Devrait rejeter une liste d'ingrédients vide",
 			}
+		} catch (error) {
+			const test2Passed = error.response && error.response.status === 400
+
+			if (!test2Passed) {
+				return {
+					testName: "POST /api/recipes - Validation des champs",
+					passed: false,
+					points: 0,
+					maxPoints: 15,
+					details: `✗ Ingrédients vides: Status ${
+						error.response ? error.response.status : "N/A"
+					} au lieu de 400`,
+				}
+			}
+		}
+
+		// Test 3: Negative prepTime
+		try {
+			await axios.post(
+				`${this.baseUrl}/api/recipes`,
+				{
+					name: "Test Recipe",
+					cuisine: "Test",
+					difficulty: "Facile",
+					prepTime: -5, // Negative
+					servings: 2,
+					ingredients: ["Test"],
+					instructions: "Test",
+				},
+				{ timeout: this.timeout }
+			)
+
+			return {
+				testName: "POST /api/recipes - Validation des champs",
+				passed: false,
+				points: 0,
+				maxPoints: 15,
+				details: "✗ Devrait rejeter un temps de préparation négatif",
+			}
+		} catch (error) {
+			const test3Passed = error.response && error.response.status === 400
+
+			if (!test3Passed) {
+				return {
+					testName: "POST /api/recipes - Validation des champs",
+					passed: false,
+					points: 0,
+					maxPoints: 15,
+					details: `✗ Temps négatif: Status ${
+						error.response ? error.response.status : "N/A"
+					} au lieu de 400`,
+				}
+			}
+		}
+
+		// All validation tests passed
+		return {
+			testName: "POST /api/recipes - Validation des champs",
+			passed: true,
+			points: 15,
+			maxPoints: 15,
+			details:
+				"✓ Validation correcte (3 tests réussis: nom vide, ingrédients vides, temps négatif)",
 		}
 	}
 

@@ -16,46 +16,113 @@ class ServerManager {
 	 */
 	async startServer(repoPath) {
 		const backendPath = path.join(repoPath, "backend")
+		const fs = require("fs")
 
 		console.log(`Starting server from: ${backendPath}`)
 
+		// Try multiple possible entry points IN THIS ORDER
+		const possibleEntryPoints = [
+			"index.js", // Check index.js FIRST (most common)
+			"server.js",
+			"app.js",
+			"main.js",
+			"src/server.js",
+			"src/index.js",
+		]
+
+		let entryPoint = null
+		for (const file of possibleEntryPoints) {
+			if (fs.existsSync(path.join(backendPath, file))) {
+				entryPoint = file
+				console.log(`Found entry point: ${file}`)
+				break
+			}
+		}
+
+		// If still not found, check package.json
+		if (!entryPoint) {
+			try {
+				const packageJsonPath = path.join(backendPath, "package.json")
+				const packageJson = JSON.parse(
+					fs.readFileSync(packageJsonPath, "utf-8")
+				)
+
+				// Check main field
+				if (
+					packageJson.main &&
+					fs.existsSync(path.join(backendPath, packageJson.main))
+				) {
+					entryPoint = packageJson.main
+					console.log(`Using main from package.json: ${entryPoint}`)
+				}
+
+				// Check start script
+				if (!entryPoint && packageJson.scripts && packageJson.scripts.start) {
+					const startScript = packageJson.scripts.start
+					const nodeMatch = startScript.match(/node\s+(\S+\.js)/)
+					if (nodeMatch) {
+						const file = nodeMatch[1]
+						if (fs.existsSync(path.join(backendPath, file))) {
+							entryPoint = file
+							console.log(`Extracted from start script: ${entryPoint}`)
+						}
+					}
+				}
+			} catch (error) {
+				console.log("Could not parse package.json:", error.message)
+			}
+		}
+
+		// Last resort: use npm start
+		let command, args
+		if (entryPoint) {
+			command = "node"
+			args = [entryPoint]
+		} else {
+			console.log("No entry point found, falling back to npm start")
+			command = "npm"
+			args = ["start"]
+		}
+
 		return new Promise((resolve) => {
-			// Start the server
-			this.process = spawn("npm", ["start"], {
+			this.process = spawn(command, args, {
 				cwd: backendPath,
-				shell: true,
+				shell: command === "npm",
 				stdio: "pipe",
 			})
 
-			let serverOutput = ""
-
-			// Capture output
 			if (this.process.stdout) {
 				this.process.stdout.on("data", (data) => {
-					serverOutput += data.toString()
+					const output = data.toString()
 					if (
-						data.toString().includes("Server") ||
-						data.toString().includes("listening") ||
-						data.toString().includes("started")
+						output.includes("Server") ||
+						output.includes("listening") ||
+						output.includes("started") ||
+						output.includes("port")
 					) {
-						console.log("Server output detected:", data.toString().trim())
+						console.log("Server output detected:", output.trim())
 					}
 				})
 			}
 
 			if (this.process.stderr) {
 				this.process.stderr.on("data", (data) => {
-					console.error("Server error:", data.toString())
+					const output = data.toString()
+					// Only show real errors, not warnings
+					if (
+						output.includes("Error: Cannot find module") ||
+						output.includes("EADDRINUSE")
+					) {
+						console.error("Server error:", output)
+					}
 				})
 			}
 
-			// Handle process errors
 			this.process.on("error", (error) => {
 				console.error("Failed to start server:", error)
 				resolve(false)
 			})
 
-			// Wait for server to be ready
 			this.waitForServer()
 				.then(() => resolve(true))
 				.catch((err) => {
@@ -92,80 +159,20 @@ class ServerManager {
 	 * @returns {Promise<void>}
 	 */
 	async stopServer() {
-		if (this.process) {
-			console.log("Stopping server...")
+		console.log("Stopping server...")
 
+		if (this.process && this.process.pid) {
 			try {
-				// Kill the process and its children
-				if (process.platform === "win32") {
-					// Windows
-					require("child_process").execSync(
-						`taskkill /pid ${this.process.pid} /T /F`,
-						{
-							stdio: "ignore",
-						}
-					)
-				} else {
-					// Unix-based systems - kill process group
-					try {
-						process.kill(-this.process.pid, "SIGKILL")
-					} catch (e) {
-						// If process group kill fails, try individual process
-						this.process.kill("SIGKILL")
-					}
-				}
+				// Simple force kill
+				this.process.kill("SIGKILL")
+				await new Promise((resolve) => setTimeout(resolve, 500))
 			} catch (error) {
-				console.log("Process already terminated")
+				// Ignore errors
 			}
-
-			// Wait for cleanup
-			await new Promise((resolve) => setTimeout(resolve, 2000))
-
 			this.process = null
 		}
 
-		// Extra cleanup: kill any process on port 3000
-		await this.killProcessOnPort(3000)
-
-		console.log("✅ Server stopped and port cleaned")
-	}
-	
-	/**
-	 * Kill any process running on a specific port
-	 * @param {number} port
-	 * @returns {Promise<void>}
-	 */
-	async killProcessOnPort(port) {
-		try {
-			if (process.platform === "win32") {
-				// Windows: find and kill process on port
-				spawn(
-					"cmd",
-					[
-						"/c",
-						`for /f "tokens=5" %a in ('netstat -aon ^| findstr :${port}') do taskkill /F /PID %a`,
-					],
-					{ shell: true }
-				)
-			} else {
-				// Unix-based: use lsof to find and kill
-				const killCommand = spawn("sh", [
-					"-c",
-					`lsof -ti :${port} | xargs kill -9 2>/dev/null || true`,
-				])
-
-				await new Promise((resolve) => {
-					killCommand.on("close", () => resolve())
-					setTimeout(resolve, 1000) // Timeout after 1 second
-				})
-			}
-
-			await new Promise((resolve) => setTimeout(resolve, 1000))
-			console.log(`✓ Cleaned up port ${port}`)
-		} catch (error) {
-			// Ignore errors - port might already be free
-			console.log(`Port ${port} cleanup: ${error.message}`)
-		}
+		console.log("✅ Server cleanup complete")
 	}
 }
 

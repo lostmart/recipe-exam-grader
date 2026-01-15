@@ -3,91 +3,95 @@ const path = require("path")
 
 class ReportGenerator {
 	/**
-	 * Grade multiple students
-	 * @param {Array} students - Array of student objects
-	 * @returns {Promise<Array>} Array of grading results
+	 * Generate a markdown report for all students
 	 */
-	async gradeMultipleStudents(students) {
-		const results = []
+	generateMarkdownReport(results, stats) {
+		let markdown = ""
 
-		console.log(`\n📚 Starting to grade ${students.length} students...\n`)
+		// Header
+		markdown += "# 📊 Rapport de Correction - Examen Web Development\n\n"
+		markdown += `**Date:** ${new Date().toLocaleString("fr-FR")}\n\n`
+		markdown += `**Nombre d'étudiants:** ${stats.totalStudents}\n\n`
+		markdown += "---\n\n"
 
-		for (let i = 0; i < students.length; i++) {
-			const student = students[i]
-			console.log(
-				`\n[${i + 1}/${students.length}] Processing ${student.studentName}...`
-			)
+		// Summary Statistics
+		markdown += "## 📈 Statistiques Globales\n\n"
+		markdown += `| Métrique | Valeur |\n`
+		markdown += `|----------|--------|\n`
+		markdown += `| Note moyenne | ${stats.averageScore}/100 (${stats.averagePercentage}%) |\n`
+		markdown += `| Note la plus haute | ${stats.highestScore}/100 |\n`
+		markdown += `| Note la plus basse | ${stats.lowestScore}/100 |\n`
+		markdown += `| Étudiants réussis (≥50%) | ${stats.passedCount}/${stats.totalStudents} |\n`
+		markdown += `| Étudiants échoués (<50%) | ${stats.failedCount}/${stats.totalStudents} |\n`
+		markdown += `| Notes parfaites (100%) | ${stats.perfectScores} |\n`
+		markdown += `| Échecs de démarrage serveur | ${stats.serverStartFailures} |\n`
+		markdown += "\n---\n\n"
 
-			try {
-				const result = await this.gradeStudent(student)
-				results.push(result)
+		// Individual Results
+		markdown += "## 👨‍🎓 Résultats Individuels\n\n"
 
-				// Save intermediate results after each student (in case of crash)
-				const { ReportGenerator } = require("../utils/report")
-				const reportGen = new ReportGenerator()
-				const intermediateStats = this.getSummaryStats(results)
-				reportGen.saveReport(
-					JSON.stringify(results, null, 2),
-					"intermediate_results.json",
-					"./results"
-				)
+		// Sort by score (highest first)
+		const sortedResults = [...results].sort(
+			(a, b) => b.totalScore - a.totalScore
+		)
 
-				// Wait before next student
-				if (i < students.length - 1) {
-					console.log("\n⏳ Waiting 5 seconds before next student...")
-					await new Promise((resolve) => setTimeout(resolve, 5000))
-				}
-			} catch (error) {
-				console.error(
-					`❌ Failed to grade ${student.studentName}:`,
-					error.message
-				)
-				results.push({
-					student: {
-						studentId: student.studentId,
-						studentName: student.studentName,
-						repoPath: student.repoPath,
-						githubUrl: student.githubUrl,
-					},
-					totalScore: 0,
-					maxScore: 100,
-					percentage: 0,
-					tests: [],
-					serverStarted: false,
-					timestamp: new Date().toISOString(),
-					errors: [error.message],
-				})
+		sortedResults.forEach((result, index) => {
+			const rank = index + 1
+			const emoji = this.getScoreEmoji(result.percentage)
+
+			markdown += `### ${rank}. ${result.student.studentName} ${emoji}\n\n`
+			markdown += `**ID:** ${result.student.studentId}\n\n`
+			markdown += `**Score Total:** ${result.totalScore}/${result.maxScore} (${result.percentage}%)\n\n`
+
+			if (result.student.githubUrl) {
+				markdown += `**Repository:** [${result.student.githubUrl}](${result.student.githubUrl})\n\n`
 			}
-		}
 
-		// Summary
-		console.log("\n" + "=".repeat(60))
-		console.log("📊 GRADING SUMMARY")
-		console.log("=".repeat(60))
+			// Server status
+			if (result.serverStarted) {
+				markdown += `**Serveur:** ✅ Démarré avec succès\n\n`
+			} else {
+				markdown += `**Serveur:** ❌ Échec de démarrage\n\n`
+			}
 
-		const avgScore =
-			results.reduce((sum, r) => sum + r.totalScore, 0) / results.length
-		const passedCount = results.filter((r) => r.totalScore >= 50).length
+			// Errors
+			if (result.errors && result.errors.length > 0) {
+				markdown += `**Erreurs:**\n`
+				result.errors.forEach((error) => {
+					markdown += `- ⚠️ ${error}\n`
+				})
+				markdown += "\n"
+			}
 
-		console.log(`Total students graded: ${results.length}`)
-		console.log(`Average score: ${avgScore.toFixed(2)}/${results[0].maxScore}`)
-		console.log(`Students passed (≥50%): ${passedCount}/${results.length}`)
-		console.log("=".repeat(60) + "\n")
+			// Test Results
+			if (result.tests && result.tests.length > 0) {
+				markdown += "#### Détails des Tests\n\n"
+				markdown += "| Test | Résultat | Points |\n"
+				markdown += "|------|----------|--------|\n"
 
-		return results
+				result.tests.forEach((test) => {
+					const status = test.passed ? "✅" : "❌"
+					const details = test.details || test.error || ""
+					markdown += `| ${test.testName} | ${status} ${details} | ${test.points}/${test.maxPoints} |\n`
+				})
+				markdown += "\n"
+			}
+
+			markdown += "---\n\n"
+		})
+
+		return markdown
 	}
 
 	/**
 	 * Generate a CSV report for all students
-	 * @param {Array} results - Array of grading results
-	 * @returns {string} CSV formatted report
 	 */
 	generateCSVReport(results) {
 		let csv = "ID,Nom,Score Total,Pourcentage,Serveur Démarré,"
 
 		// Get test names from first result
 		if (results.length > 0 && results[0].tests) {
-			const testNames = results[0].tests.map((t) => t.testName)
+			const testNames = results[0].tests.map((t) => `"${t.testName}"`)
 			csv += testNames.join(",")
 		}
 		csv += ",Erreurs,Repository\n"
@@ -126,9 +130,6 @@ class ReportGenerator {
 
 	/**
 	 * Generate a JSON report for all students
-	 * @param {Array} results - Array of grading results
-	 * @param {Object} stats - Summary statistics
-	 * @returns {string} JSON formatted report
 	 */
 	generateJSONReport(results, stats) {
 		const report = {
@@ -145,12 +146,8 @@ class ReportGenerator {
 
 	/**
 	 * Save report to file
-	 * @param {string} content - Report content
-	 * @param {string} filename - Output filename
-	 * @param {string} outputDir - Output directory
 	 */
 	saveReport(content, filename, outputDir = "./results") {
-		// Create output directory if it doesn't exist
 		if (!fs.existsSync(outputDir)) {
 			fs.mkdirSync(outputDir, { recursive: true })
 		}
@@ -164,10 +161,6 @@ class ReportGenerator {
 
 	/**
 	 * Generate and save all report formats
-	 * @param {Array} results - Array of grading results
-	 * @param {Object} stats - Summary statistics
-	 * @param {string} outputDir - Output directory
-	 * @returns {Object} Paths to generated reports
 	 */
 	generateAllReports(results, stats, outputDir = "./results") {
 		const timestamp = new Date()
@@ -175,10 +168,12 @@ class ReportGenerator {
 			.replace(/[:.]/g, "-")
 			.slice(0, -5)
 
+		// Generate each report
 		const markdownReport = this.generateMarkdownReport(results, stats)
 		const csvReport = this.generateCSVReport(results)
 		const jsonReport = this.generateJSONReport(results, stats)
 
+		// Save each report
 		const markdownPath = this.saveReport(
 			markdownReport,
 			`rapport_${timestamp}.md`,
@@ -204,8 +199,6 @@ class ReportGenerator {
 
 	/**
 	 * Get emoji based on score percentage
-	 * @param {number} percentage
-	 * @returns {string}
 	 */
 	getScoreEmoji(percentage) {
 		const score = parseFloat(percentage)
@@ -219,7 +212,6 @@ class ReportGenerator {
 
 	/**
 	 * Print summary to console
-	 * @param {Object} stats - Summary statistics
 	 */
 	printSummary(stats) {
 		console.log("\n" + "=".repeat(60))
