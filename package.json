@@ -1,22 +1,35 @@
 {
-  "name": "recipe-exam-grader",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^1.13.2"
-  },
-  "devDependencies": {
-    "@types/axios": "^0.9.36",
-    "@types/node": "^25.0.8",
-    "nodemon": "^3.1.11",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  }
+	"name": "recipe-exam-grader",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"dev": "nodemon --exec ts-node src/index.ts",
+		"grade": "ts-node src/index.ts"
+	},
+	"keywords": [
+		"recipe",
+		"exam",
+		"grader",
+		"automation",
+		"typescript",
+		"nodejs",
+		"martin p"
+	],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^1.13.2"
+	},
+	"devDependencies": {
+		"@types/axios": "^0.9.36",
+		"@types/node": "^25.0.8",
+		"chalk": "^5.6.2",
+		"cli-table3": "^0.6.5",
+		"nodemon": "^3.1.11",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.3"
+	}
 }
