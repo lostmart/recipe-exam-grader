@@ -1,0 +1,1268 @@
+{
+  "metadata": {
+    "generatedAt": "2026-01-15T16:42:20.837Z",
+    "totalStudents": 18
+  },
+  "statistics": {
+    "totalStudents": 18,
+    "averageScore": "62.78",
+    "averagePercentage": "62.78",
+    "highestScore": 85,
+    "lowestScore": 0,
+    "passedCount": 13,
+    "failedCount": 5,
+    "perfectScores": 0,
+    "serverStartFailures": 1
+  },
+  "results": [
+    {
+      "student": {
+        "studentId": "33923",
+        "studentName": "ABDOUL Mouzamil",
+        "repoPath": "students/33923_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/amouzamil-boop/web-dev-exam-ensea"
+      },
+      "totalScore": 85,
+      "maxScore": 100,
+      "percentage": "85.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 55 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495192744"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:39:49.627Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33925",
+        "studentName": "ALAN Tolga",
+        "repoPath": "students/33925_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/Tolga4554/web-dev-exam-ensea"
+      },
+      "totalScore": 55,
+      "maxScore": 100,
+      "percentage": "55.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 6 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 20,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Status 404 au lieu de 400"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 10,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:39:56.769Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33035",
+        "studentName": "ARIBA Abderraouf",
+        "repoPath": "students/33035_exam-dev-web-ariba",
+        "githubUrl": "https://github.com/raoufariba01-glitch/exam-dev-web-ariba"
+      },
+      "totalScore": 85,
+      "maxScore": 100,
+      "percentage": "85.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 9 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495206870"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:40:03.829Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33932",
+        "studentName": "BEUGRÉ Esther",
+        "repoPath": "students/33932_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/Estherbeugre/web-dev-exam-ensea"
+      },
+      "totalScore": 55,
+      "maxScore": 100,
+      "percentage": "55.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 6 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 20,
+          "error": "HTTP 500: Request failed with status code 500"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Status 500 au lieu de 400"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 10,
+          "error": "HTTP 500: Request failed with status code 500"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:40:10.891Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "32884",
+        "studentName": "BOUADJADJA Rayan",
+        "repoPath": "students/32884_rayan_bouadjadja_dev_web",
+        "githubUrl": "https://github.com/rayann78/rayan_bouadjadja_dev_web"
+      },
+      "totalScore": 0,
+      "maxScore": 100,
+      "percentage": 0,
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 5,
+          "details": "✗ Le serveur n'a pas démarré"
+        }
+      ],
+      "serverStarted": false,
+      "timestamp": "2026-01-15T16:40:17.951Z",
+      "errors": [
+        "Server failed to start"
+      ]
+    },
+    {
+      "student": {
+        "studentId": "34152",
+        "studentName": "BOUDAOUDI Salah Eddine",
+        "repoPath": "students/34152_web_dev_ensea_salah",
+        "githubUrl": "https://github.com/krizln/web_dev_ensea_salah"
+      },
+      "totalScore": 70,
+      "maxScore": 100,
+      "percentage": "70.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 9 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495255074"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:40:52.033Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33934",
+        "studentName": "BOUTICHE Abdelrahmen",
+        "repoPath": "students/33934_web-dev-exam-ensea_Abdelrahmen_Boutiche",
+        "githubUrl": "https://github.com/AbdelBoutiche/web-dev-exam-ensea_Abdelrahmen_Boutiche"
+      },
+      "totalScore": 85,
+      "maxScore": 100,
+      "percentage": "85.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 9 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495262136"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:40:59.097Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33938",
+        "studentName": "DILER Ewen",
+        "repoPath": "students/33938_DILER_Ewen_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/ewendiler/DILER_Ewen_web-dev-exam-ensea"
+      },
+      "totalScore": 70,
+      "maxScore": 100,
+      "percentage": "70.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 9 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495269192"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:06.152Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33946",
+        "studentName": "ES-SAOUDI Chaimaa",
+        "repoPath": "students/33946_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/chaimaa123444/web-dev-exam-ensea"
+      },
+      "totalScore": 85,
+      "maxScore": 100,
+      "percentage": "85.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 10 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495276253"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:13.215Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "34559",
+        "studentName": "FOFANA Zakaria",
+        "repoPath": "students/34559_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/Zakaria-lab-create/web-dev-exam-ensea"
+      },
+      "totalScore": 40,
+      "maxScore": 100,
+      "percentage": "40.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 6 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 20,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Status 404 au lieu de 400"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 10,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:20.271Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33955",
+        "studentName": "LILE Gervais",
+        "repoPath": "students/33955_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/lilegervais/web-dev-exam-ensea"
+      },
+      "totalScore": 85,
+      "maxScore": 100,
+      "percentage": "85.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 10 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495290368"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:27.328Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33957",
+        "studentName": "MIR Farah",
+        "repoPath": "students/33957_2526_3DA_Examen_dev_web_Farah-MIR",
+        "githubUrl": "https://github.com/farah09555/2526_3DA_Examen_dev_web_Farah-MIR"
+      },
+      "totalScore": 70,
+      "maxScore": 100,
+      "percentage": "70.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 10 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495297421"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:34.383Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33960",
+        "studentName": "PIEDELEU Robin",
+        "repoPath": "students/33960_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/piedeleurobin-spec/web-dev-exam-ensea"
+      },
+      "totalScore": 40,
+      "maxScore": 100,
+      "percentage": "40.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 6 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 20,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Status 404 au lieu de 400"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 10,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:41.438Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33961",
+        "studentName": "PUN Sandeep",
+        "repoPath": "students/33961_Pun_Sandeep_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/sandepun87/Pun_Sandeep_web-dev-exam-ensea"
+      },
+      "totalScore": 40,
+      "maxScore": 100,
+      "percentage": "40.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 6 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 20,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Status 404 au lieu de 400"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 10,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:48.493Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33962",
+        "studentName": "REY Pierre",
+        "repoPath": "students/33962_web-dev-exam-REY",
+        "githubUrl": "https://github.com/Drunkharvest/web-dev-exam-REY"
+      },
+      "totalScore": 70,
+      "maxScore": 100,
+      "percentage": "70.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 10 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495318588"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:41:55.549Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33963",
+        "studentName": "ROUX Julien",
+        "repoPath": "students/33963_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/JulienENSEA/web-dev-exam-ensea"
+      },
+      "totalScore": 85,
+      "maxScore": 100,
+      "percentage": "85.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 11 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Récupérer une recette par ID",
+          "passed": "Française",
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ Recette \"Ratatouille Provençale\" retournée correctement"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495325650"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:42:02.607Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "33967",
+        "studentName": "SOW Bocar – Thimbo",
+        "repoPath": "students/33967_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/bocarsow02/web-dev-exam-ensea"
+      },
+      "totalScore": 40,
+      "maxScore": 100,
+      "percentage": "40.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 6 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 20,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Status 404 au lieu de 400"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 10,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:42:09.668Z",
+      "errors": []
+    },
+    {
+      "student": {
+        "studentId": "34626",
+        "studentName": "ZAID Maroua",
+        "repoPath": "students/34626_web-dev-exam-ensea",
+        "githubUrl": "https://github.com/marouazai/web-dev-exam-ensea"
+      },
+      "totalScore": 70,
+      "maxScore": 100,
+      "percentage": "70.00",
+      "tests": [
+        {
+          "testName": "Server Startup",
+          "passed": true,
+          "points": 5,
+          "maxPoints": 5,
+          "details": "✓ Le serveur a démarré correctement"
+        },
+        {
+          "testName": "GET /api/recipes - Récupérer toutes les recettes",
+          "passed": true,
+          "points": 15,
+          "maxPoints": 15,
+          "details": "✓ 9 recettes retournées"
+        },
+        {
+          "testName": "GET /api/recipes/:id",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "error": "HTTP 404: Request failed with status code 404"
+        },
+        {
+          "testName": "GET /api/recipes/:id - Gestion 404",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ 404 retourné correctement"
+        },
+        {
+          "testName": "POST /api/recipes - Créer une recette valide",
+          "passed": true,
+          "points": 20,
+          "maxPoints": 20,
+          "details": "✓ Recette créée avec ID 1768495339761"
+        },
+        {
+          "testName": "POST /api/recipes - Validation des champs",
+          "passed": false,
+          "points": 0,
+          "maxPoints": 15,
+          "details": "✗ Devrait rejeter les données invalides"
+        },
+        {
+          "testName": "Persistance des données",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Les données persistent correctement"
+        },
+        {
+          "testName": "Gestion des erreurs",
+          "passed": true,
+          "points": 10,
+          "maxPoints": 10,
+          "details": "✓ Erreurs gérées avec codes HTTP appropriés"
+        }
+      ],
+      "serverStarted": true,
+      "timestamp": "2026-01-15T16:42:16.724Z",
+      "errors": []
+    }
+  ]
+}

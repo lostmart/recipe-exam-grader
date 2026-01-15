@@ -1,0 +1,19 @@
+ID,Nom,Score Total,Pourcentage,Serveur Démarré,"Server Startup","GET /api/recipes - Récupérer toutes les recettes","GET /api/recipes/:id - Récupérer une recette par ID","GET /api/recipes/:id - Gestion 404","POST /api/recipes - Créer une recette valide","POST /api/recipes - Validation des champs","Persistance des données","Gestion des erreurs",Erreurs,Repository
+33923,"ABDOUL Mouzamil",85,85.00,Oui,5,15,15,10,20,0,10,10,,https://github.com/amouzamil-boop/web-dev-exam-ensea
+33925,"ALAN Tolga",55,55.00,Oui,5,15,15,10,0,0,0,10,,https://github.com/Tolga4554/web-dev-exam-ensea
+33035,"ARIBA Abderraouf",85,85.00,Oui,5,15,15,10,20,0,10,10,,https://github.com/raoufariba01-glitch/exam-dev-web-ariba
+33932,"BEUGRÉ Esther",55,55.00,Oui,5,15,15,10,0,0,0,10,,https://github.com/Estherbeugre/web-dev-exam-ensea
+32884,"BOUADJADJA Rayan",0,0,Non,0,"Server failed to start",https://github.com/rayann78/rayan_bouadjadja_dev_web
+34152,"BOUDAOUDI Salah Eddine",70,70.00,Oui,5,15,0,10,20,0,10,10,,https://github.com/krizln/web_dev_ensea_salah
+33934,"BOUTICHE Abdelrahmen",85,85.00,Oui,5,15,15,10,20,0,10,10,,https://github.com/AbdelBoutiche/web-dev-exam-ensea_Abdelrahmen_Boutiche
+33938,"DILER Ewen",70,70.00,Oui,5,15,0,10,20,0,10,10,,https://github.com/ewendiler/DILER_Ewen_web-dev-exam-ensea
+33946,"ES-SAOUDI Chaimaa",85,85.00,Oui,5,15,15,10,20,0,10,10,,https://github.com/chaimaa123444/web-dev-exam-ensea
+34559,"FOFANA Zakaria",40,40.00,Oui,5,15,0,10,0,0,0,10,,https://github.com/Zakaria-lab-create/web-dev-exam-ensea
+33955,"LILE Gervais",85,85.00,Oui,5,15,15,10,20,0,10,10,,https://github.com/lilegervais/web-dev-exam-ensea
+33957,"MIR Farah",70,70.00,Oui,5,15,0,10,20,0,10,10,,https://github.com/farah09555/2526_3DA_Examen_dev_web_Farah-MIR
+33960,"PIEDELEU Robin",40,40.00,Oui,5,15,0,10,0,0,0,10,,https://github.com/piedeleurobin-spec/web-dev-exam-ensea
+33961,"PUN Sandeep",40,40.00,Oui,5,15,0,10,0,0,0,10,,https://github.com/sandepun87/Pun_Sandeep_web-dev-exam-ensea
+33962,"REY Pierre",70,70.00,Oui,5,15,0,10,20,0,10,10,,https://github.com/Drunkharvest/web-dev-exam-REY
+33963,"ROUX Julien",85,85.00,Oui,5,15,15,10,20,0,10,10,,https://github.com/JulienENSEA/web-dev-exam-ensea
+33967,"SOW Bocar – Thimbo",40,40.00,Oui,5,15,0,10,0,0,0,10,,https://github.com/bocarsow02/web-dev-exam-ensea
+34626,"ZAID Maroua",70,70.00,Oui,5,15,0,10,20,0,10,10,,https://github.com/marouazai/web-dev-exam-ensea
