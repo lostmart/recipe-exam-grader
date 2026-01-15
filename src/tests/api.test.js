@@ -1,20 +1,17 @@
-import axios from "axios"
-import { TestResult, Recipe } from "../types"
+const axios = require("axios")
 
-export class APITester {
-	private baseUrl: string
-	private timeout: number
-
-	constructor(
-		baseUrl: string = "http://localhost:3000",
-		timeout: number = 5000
-	) {
+class APITester {
+	constructor(baseUrl = "http://localhost:3000", timeout = 5000) {
 		this.baseUrl = baseUrl
 		this.timeout = timeout
 	}
 
-	async runAllTests(): Promise<TestResult[]> {
-		const results: TestResult[] = []
+	/**
+	 * Run all API tests
+	 * @returns {Promise<Array>} Array of test results
+	 */
+	async runAllTests() {
+		const results = []
 
 		results.push(await this.testGetAllRecipes())
 		results.push(await this.testGetRecipeById())
@@ -27,7 +24,10 @@ export class APITester {
 		return results
 	}
 
-	private async testGetAllRecipes(): Promise<TestResult> {
+	/**
+	 * Test GET /api/recipes - Get all recipes
+	 */
+	async testGetAllRecipes() {
 		try {
 			const response = await axios.get(`${this.baseUrl}/api/recipes`, {
 				timeout: this.timeout,
@@ -47,7 +47,7 @@ export class APITester {
 					? `✓ ${response.data.length} recettes retournées`
 					: "✗ Réponse invalide ou vide",
 			}
-		} catch (error: any) {
+		} catch (error) {
 			return {
 				testName: "GET /api/recipes",
 				passed: false,
@@ -58,7 +58,10 @@ export class APITester {
 		}
 	}
 
-	private async testGetRecipeById(): Promise<TestResult> {
+	/**
+	 * Test GET /api/recipes/:id - Get recipe by ID
+	 */
+	async testGetRecipeById() {
 		try {
 			const response = await axios.get(`${this.baseUrl}/api/recipes/1`, {
 				timeout: this.timeout,
@@ -80,7 +83,7 @@ export class APITester {
 					? `✓ Recette "${recipe.name}" retournée correctement`
 					: "✗ Structure de recette invalide",
 			}
-		} catch (error: any) {
+		} catch (error) {
 			return {
 				testName: "GET /api/recipes/:id",
 				passed: false,
@@ -91,7 +94,10 @@ export class APITester {
 		}
 	}
 
-	private async testGetRecipeById404(): Promise<TestResult> {
+	/**
+	 * Test GET /api/recipes/:id - Should return 404 for non-existent ID
+	 */
+	async testGetRecipeById404() {
 		try {
 			await axios.get(`${this.baseUrl}/api/recipes/99999`, {
 				timeout: this.timeout,
@@ -105,8 +111,8 @@ export class APITester {
 				maxPoints: 10,
 				details: "✗ Devrait retourner 404 pour un ID inexistant",
 			}
-		} catch (error: any) {
-			const passed = error.response?.status === 404
+		} catch (error) {
+			const passed = error.response && error.response.status === 404
 
 			return {
 				testName: "GET /api/recipes/:id - Gestion 404",
@@ -115,12 +121,17 @@ export class APITester {
 				maxPoints: 10,
 				details: passed
 					? "✓ 404 retourné correctement"
-					: `✗ Status ${error.response?.status} au lieu de 404`,
+					: `✗ Status ${
+							error.response ? error.response.status : "N/A"
+					  } au lieu de 404`,
 			}
 		}
 	}
 
-	private async testPostRecipeValid(): Promise<TestResult> {
+	/**
+	 * Test POST /api/recipes - Create a valid recipe
+	 */
+	async testPostRecipeValid() {
 		const newRecipe = {
 			name: "Test Recette Grader",
 			cuisine: "Test",
@@ -153,7 +164,7 @@ export class APITester {
 					? `✓ Recette créée avec ID ${recipe.id}`
 					: "✗ Réponse invalide",
 			}
-		} catch (error: any) {
+		} catch (error) {
 			return {
 				testName: "POST /api/recipes",
 				passed: false,
@@ -164,9 +175,12 @@ export class APITester {
 		}
 	}
 
-	private async testPostRecipeValidation(): Promise<TestResult> {
+	/**
+	 * Test POST /api/recipes - Should validate required fields
+	 */
+	async testPostRecipeValidation() {
 		const invalidRecipe = {
-			name: "", // Invalid: empty name
+			name: "",
 			cuisine: "Test",
 			// Missing required fields
 		}
@@ -184,8 +198,8 @@ export class APITester {
 				maxPoints: 15,
 				details: "✗ Devrait rejeter les données invalides",
 			}
-		} catch (error: any) {
-			const passed = error.response?.status === 400
+		} catch (error) {
+			const passed = error.response && error.response.status === 400
 
 			return {
 				testName: "POST /api/recipes - Validation des champs",
@@ -194,12 +208,17 @@ export class APITester {
 				maxPoints: 15,
 				details: passed
 					? "✓ Validation correcte (400 retourné)"
-					: `✗ Status ${error.response?.status} au lieu de 400`,
+					: `✗ Status ${
+							error.response ? error.response.status : "N/A"
+					  } au lieu de 400`,
 			}
 		}
 	}
 
-	private async testDataPersistence(): Promise<TestResult> {
+	/**
+	 * Test data persistence - Recipe should persist after creation
+	 */
+	async testDataPersistence() {
 		try {
 			// Get initial count
 			const before = await axios.get(`${this.baseUrl}/api/recipes`)
@@ -233,7 +252,7 @@ export class APITester {
 					? "✓ Les données persistent correctement"
 					: `✗ Nombre de recettes: avant=${countBefore}, après=${countAfter}`,
 			}
-		} catch (error: any) {
+		} catch (error) {
 			return {
 				testName: "Persistance des données",
 				passed: false,
@@ -244,9 +263,12 @@ export class APITester {
 		}
 	}
 
-	private async testErrorHandling(): Promise<TestResult> {
+	/**
+	 * Test error handling - Should handle errors gracefully
+	 */
+	async testErrorHandling() {
 		try {
-			// Test with malformed JSON (if possible)
+			// Test with malformed parameter
 			await axios.get(`${this.baseUrl}/api/recipes/abc`, {
 				timeout: this.timeout,
 			})
@@ -258,8 +280,8 @@ export class APITester {
 				maxPoints: 10,
 				details: "✗ Devrait gérer les erreurs correctement",
 			}
-		} catch (error: any) {
-			const passed = error.response?.status && error.response.status >= 400
+		} catch (error) {
+			const passed = error.response && error.response.status >= 400
 
 			return {
 				testName: "Gestion des erreurs",
@@ -273,10 +295,20 @@ export class APITester {
 		}
 	}
 
-	private getErrorMessage(error: any): string {
+	/**
+	 * Extract error message from axios error
+	 * @param {Error} error
+	 * @returns {string}
+	 */
+	getErrorMessage(error) {
 		if (error.response) {
 			return `HTTP ${error.response.status}: ${error.message}`
+		}
+		if (error.code === "ECONNREFUSED") {
+			return "Cannot connect to server"
 		}
 		return error.message || String(error)
 	}
 }
+
+module.exports = { APITester }

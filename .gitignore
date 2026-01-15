@@ -3,6 +3,8 @@ dist/
 .env
 .DS_Store
 
+students/
+
 .vscode/
 .idea/
 *.log

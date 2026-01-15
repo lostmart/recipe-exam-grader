@@ -25,3 +25,14 @@ recipe-exam-grader/
 └── tsconfig.json
 ```
 
+# Recipe Exam Auto-Grader
+
+Automated grading system for the web development exam.
+
+## Setup
+
+1. Install dependencies:
+
+```bash
+
+```

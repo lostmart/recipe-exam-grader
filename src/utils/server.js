@@ -1,21 +1,20 @@
-import { spawn, ChildProcess } from "child_process"
-import axios from "axios"
-import path from "path"
+const { spawn } = require("child_process")
+const axios = require("axios")
+const path = require("path")
 
-export class ServerManager {
-	private process: ChildProcess | null = null
-	private baseUrl: string
-	private timeout: number
-
-	constructor(
-		baseUrl: string = "http://localhost:3000",
-		timeout: number = 30000
-	) {
+class ServerManager {
+	constructor(baseUrl = "http://localhost:3000", timeout = 30000) {
+		this.process = null
 		this.baseUrl = baseUrl
 		this.timeout = timeout
 	}
 
-	async startServer(repoPath: string): Promise<boolean> {
+	/**
+	 * Start the student's backend server
+	 * @param {string} repoPath - Path to the student's repo
+	 * @returns {Promise<boolean>} - True if server started successfully
+	 */
+	async startServer(repoPath) {
 		const backendPath = path.join(repoPath, "backend")
 
 		console.log(`Starting server from: ${backendPath}`)
@@ -31,19 +30,24 @@ export class ServerManager {
 			let serverOutput = ""
 
 			// Capture output
-			this.process.stdout?.on("data", (data) => {
-				serverOutput += data.toString()
-				if (
-					data.toString().includes("Server") ||
-					data.toString().includes("listening")
-				) {
-					console.log("Server output detected:", data.toString().trim())
-				}
-			})
+			if (this.process.stdout) {
+				this.process.stdout.on("data", (data) => {
+					serverOutput += data.toString()
+					if (
+						data.toString().includes("Server") ||
+						data.toString().includes("listening") ||
+						data.toString().includes("started")
+					) {
+						console.log("Server output detected:", data.toString().trim())
+					}
+				})
+			}
 
-			this.process.stderr?.on("data", (data) => {
-				console.error("Server error:", data.toString())
-			})
+			if (this.process.stderr) {
+				this.process.stderr.on("data", (data) => {
+					console.error("Server error:", data.toString())
+				})
+			}
 
 			// Handle process errors
 			this.process.on("error", (error) => {
@@ -54,11 +58,18 @@ export class ServerManager {
 			// Wait for server to be ready
 			this.waitForServer()
 				.then(() => resolve(true))
-				.catch(() => resolve(false))
+				.catch((err) => {
+					console.error("Server failed to start:", err.message)
+					resolve(false)
+				})
 		})
 	}
 
-	private async waitForServer(): Promise<void> {
+	/**
+	 * Wait for the server to be ready by polling the API
+	 * @returns {Promise<void>}
+	 */
+	async waitForServer() {
 		const startTime = Date.now()
 		const retryInterval = 1000 // Check every second
 
@@ -76,18 +87,38 @@ export class ServerManager {
 		throw new Error("Server failed to start within timeout period")
 	}
 
-	async stopServer(): Promise<void> {
+	/**
+	 * Stop the server and clean up
+	 * @returns {Promise<void>}
+	 */
+	async stopServer() {
 		if (this.process) {
 			console.log("Stopping server...")
 
-			// Kill the process and its children
-			if (process.platform === "win32") {
-				spawn("taskkill", ["/pid", this.process.pid!.toString(), "/f", "/t"])
-			} else {
-				this.process.kill("SIGTERM")
+			try {
+				// Kill the process and its children
+				if (process.platform === "win32") {
+					// Windows
+					require("child_process").execSync(
+						`taskkill /pid ${this.process.pid} /T /F`,
+						{
+							stdio: "ignore",
+						}
+					)
+				} else {
+					// Unix-based systems - kill process group
+					try {
+						process.kill(-this.process.pid, "SIGKILL")
+					} catch (e) {
+						// If process group kill fails, try individual process
+						this.process.kill("SIGKILL")
+					}
+				}
+			} catch (error) {
+				console.log("Process already terminated")
 			}
 
-			// Wait a bit for cleanup
+			// Wait for cleanup
 			await new Promise((resolve) => setTimeout(resolve, 2000))
 
 			this.process = null
@@ -95,22 +126,47 @@ export class ServerManager {
 
 		// Extra cleanup: kill any process on port 3000
 		await this.killProcessOnPort(3000)
-	}
 
-	private async killProcessOnPort(port: number): Promise<void> {
+		console.log("✅ Server stopped and port cleaned")
+	}
+	
+	/**
+	 * Kill any process running on a specific port
+	 * @param {number} port
+	 * @returns {Promise<void>}
+	 */
+	async killProcessOnPort(port) {
 		try {
 			if (process.platform === "win32") {
-				// Windows
-				spawn("netstat", ["-ano", "|", "findstr", `:${port}`])
+				// Windows: find and kill process on port
+				spawn(
+					"cmd",
+					[
+						"/c",
+						`for /f "tokens=5" %a in ('netstat -aon ^| findstr :${port}') do taskkill /F /PID %a`,
+					],
+					{ shell: true }
+				)
 			} else {
-				// Unix-based systems
-				spawn("lsof", ["-ti", `:${port}`, "|", "xargs", "kill", "-9"], {
-					shell: true,
+				// Unix-based: use lsof to find and kill
+				const killCommand = spawn("sh", [
+					"-c",
+					`lsof -ti :${port} | xargs kill -9 2>/dev/null || true`,
+				])
+
+				await new Promise((resolve) => {
+					killCommand.on("close", () => resolve())
+					setTimeout(resolve, 1000) // Timeout after 1 second
 				})
 			}
+
 			await new Promise((resolve) => setTimeout(resolve, 1000))
+			console.log(`✓ Cleaned up port ${port}`)
 		} catch (error) {
 			// Ignore errors - port might already be free
+			console.log(`Port ${port} cleanup: ${error.message}`)
 		}
 	}
 }
+
+module.exports = { ServerManager }
