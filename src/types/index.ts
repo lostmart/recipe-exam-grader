@@ -50,3 +50,10 @@ export interface GradingConfig {
 		errorHandling: number
 	}
 }
+
+export interface StudentSubmission {
+	studentId: string
+	studentName: string
+	repoPath: string
+	githubUrl?: string
+}
