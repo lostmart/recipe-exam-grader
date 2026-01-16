@@ -123,6 +123,7 @@ function getAllResults() {
 		.prepare(
 			`
     SELECT 
+      r.id,
       s.repo_name,
       s.repo_url,
       r.backend_score,

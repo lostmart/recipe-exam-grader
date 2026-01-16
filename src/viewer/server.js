@@ -1,12 +1,15 @@
 const express = require("express")
 const path = require("path")
 const { getAllResults, getResultById } = require("../db/database")
+const gradingApi = require("../api/grading-api")
 
 const app = express()
 const PORT = 3001
 
+app.use(express.json())
 app.use(express.static(__dirname))
 
+// API routes
 app.get("/api/results", (req, res) => {
 	const results = getAllResults()
 	res.json(results)
@@ -19,6 +22,9 @@ app.get("/api/results/:id", (req, res) => {
 	}
 	res.json(result)
 })
+
+// Grading control API
+app.use("/api/grading", gradingApi)
 
 app.listen(PORT, () => {
 	console.log(`\n📊 Results viewer running at: http://localhost:${PORT}`)

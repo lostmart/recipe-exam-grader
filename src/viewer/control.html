@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grading Control Panel</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .header h1 { font-size: 32px; margin-bottom: 10px; }
+    .nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .nav a {
+      padding: 10px 20px;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .nav a:hover { background: #f0f0f0; }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .card h2 { margin-bottom: 20px; color: #333; }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .btn {
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .btn:hover { background: #5568d3; }
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: #6c757d;
+    }
+    .btn-secondary:hover { background: #5a6268; }
+    .status {
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      margin-top: 20px;
+      min-height: 100px;
+    }
+    .status-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: white;
+      border-radius: 4px;
+    }
+    .status-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+    .warning { color: #f59e0b; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎮 Grading Control Panel</h1>
+      <p>Grade student repositories automatically</p>
+    </div>
+
+    <div class="nav">
+      <a href="/">📊 Dashboard</a>
+      <a href="/control.html" style="background: #667eea; color: white;">🎮 Control Panel</a>
+    </div>
+
+    <div class="card">
+      <h2>Grade Repository</h2>
+      
+      <div class="form-group">
+        <label for="repoUrl">Repository URL</label>
+        <input 
+          type="text" 
+          id="repoUrl" 
+          placeholder="https://github.com/username/repo-name"
+          value="https://github.com/amouzamil-boop/web-dev-exam-ensea"
+        >
+      </div>
+
+      <button class="btn" onclick="startGrading()" id="startBtn">
+        🚀 Start Grading
+      </button>
+      
+      <button class="btn btn-secondary" onclick="stopAll()" id="stopBtn" disabled>
+        🛑 Stop All
+      </button>
+
+      <div class="status" id="status">
+        <p style="color: #666;">Ready to grade. Paste a repository URL and click "Start Grading".</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How It Works</h2>
+      <ol style="line-height: 2;">
+        <li>📦 Clones the repository</li>
+        <li>⚙️ Installs dependencies</li>
+        <li>🚀 Starts backend and frontend servers</li>
+        <li>🧪 Runs automated tests (Backend + Frontend)</li>
+        <li>💾 Saves results to database</li>
+        <li>📊 View results in the dashboard</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    let currentProcesses = [];
+
+    async function startGrading() {
+      const repoUrl = document.getElementById('repoUrl').value.trim();
+      
+      if (!repoUrl) {
+        alert('Please enter a repository URL');
+        return;
+      }
+
+      const statusDiv = document.getElementById('status');
+      const startBtn = document.getElementById('startBtn');
+      const stopBtn = document.getElementById('stopBtn');
+
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+
+      statusDiv.innerHTML = '';
+
+      // Step 1: Start servers
+      addStatus('🚀 Starting servers...', 'loading');
+      
+      try {
+        const serversResponse = await fetch('/api/grading/start-servers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ repoUrl })
+        });
+
+        const serversData = await serversResponse.json();
+        
+        if (serversData.success) {
+          currentProcesses.push(serversData.processId);
+          addStatus('✅ Servers started', 'success');
+          
+          // Wait a bit for servers to be ready
+          addStatus('⏳ Waiting for servers to be ready...', 'loading');
+          await new Promise(resolve => setTimeout(resolve, 10000));
+          
+          // Step 2: Run grading
+          addStatus('🧪 Running tests...', 'loading');
+          
+          const gradingResponse = await fetch('/api/grading/run-grading', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ repoUrl })
+          });
+
+          const gradingData = await gradingResponse.json();
+          
+          if (gradingData.success) {
+            currentProcesses.push(gradingData.processId);
+            
+            // Wait for grading to complete (estimate ~2 minutes)
+            await new Promise(resolve => setTimeout(resolve, 120000));
+            
+            addStatus('✅ Grading complete!', 'success');
+            addStatus('📊 <a href="/" style="color: #667eea;">View results in dashboard</a>', 'success');
+            
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+          } else {
+            addStatus('❌ Grading failed: ' + gradingData.error, 'error');
+            startBtn.disabled = false;
+          }
+        } else {
+          addStatus('❌ Failed to start servers: ' + serversData.error, 'error');
+          startBtn.disabled = false;
+        }
+      } catch (error) {
+        addStatus('❌ Error: ' + error.message, 'error');
+        startBtn.disabled = false;
+      }
+    }
+
+    async function stopAll() {
+      for (const processId of currentProcesses) {
+        try {
+          await fetch('/api/grading/stop-process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ processId })
+          });
+        } catch (error) {
+          console.error('Failed to stop process:', error);
+        }
+      }
+      
+      currentProcesses = [];
+      addStatus('🛑 All processes stopped', 'warning');
+      document.getElementById('startBtn').disabled = false;
+      document.getElementById('stopBtn').disabled = true;
+    }
+
+    function addStatus(message, type) {
+      const statusDiv = document.getElementById('status');
+      const statusItem = document.createElement('div');
+      statusItem.className = 'status-item';
+      
+      let icon = '';
+      if (type === 'loading') {
+        icon = '<div class="spinner"></div>';
+      } else if (type === 'success') {
+        icon = '<span class="status-icon success">✅</span>';
+      } else if (type === 'error') {
+        icon = '<span class="status-icon error">❌</span>';
+      } else if (type === 'warning') {
+        icon = '<span class="status-icon warning">⚠️</span>';
+      }
+      
+      statusItem.innerHTML = icon + '<span>' + message + '</span>';
+      statusDiv.appendChild(statusItem);
+      
+      // Auto-scroll to bottom
+      statusDiv.scrollTop = statusDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>
