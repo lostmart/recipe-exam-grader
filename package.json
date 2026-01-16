@@ -4,8 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node src/index.js",
 		"test": "node src/tests/test-runner.js",
+		"test:frontend": "node src/tests/frontend-test.js",
 		"frontend": "live-server students/web-dev-exam-ensea/frontend --port=5500 --no-browser"
 	},
 	"keywords": [
