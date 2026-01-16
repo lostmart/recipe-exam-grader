@@ -4,9 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"frontend": "live-server students/web-dev-exam-ensea/frontend --port=5500 --no-browser",
 		"test": "node src/tests/test-runner.js",
 		"test:frontend": "node src/tests/frontend-test.js",
-		"frontend": "live-server students/web-dev-exam-ensea/frontend --port=5500 --no-browser"
+		"viewer": "node src/viewer/server.js",
+		"grade": "node src/services/grade.js"
 	},
 	"keywords": [
 		"recipe",
@@ -21,7 +23,9 @@
 	"license": "ISC",
 	"dependencies": {
 		"axios": "^1.13.2",
+		"better-sqlite3": "^12.6.0",
 		"csv-parse": "^6.1.0",
+		"express": "^5.2.1",
 		"puppeteer": "^24.35.0"
 	},
 	"devDependencies": {
